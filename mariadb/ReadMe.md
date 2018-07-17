@@ -14,9 +14,6 @@ During the first start, user root is deleted, and the given user (MARIADB_ROOT_U
 
 If /mnt/sql directory contains a file named all-databases.sql, this file is passed to mysql, allowing an automated restore.
 
-Note : after the first run, the container stops (not noticeable if --restart=always)
-
-
 Run MariaDB:
 ------------
 run the image with arguments, and the will be directly passed to safe_mysqld.
@@ -45,12 +42,13 @@ arguments that *should be set* to configure it correctly:
 
 In order to get all logs trapped with docker you could also add:
 
-- log-error=/dev/stdout
 - log-warnings
 - slow-query-log
 - slow-query-log-file /dev/stdout
 - general-log
 - general-log-file /dev/stdout
+
+Note : error log are automaticaly sent to stdout
 
 Launch an audit:
 ----------------
