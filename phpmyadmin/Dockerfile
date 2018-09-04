@@ -23,7 +23,7 @@ RUN rm -rf \
     /usr/share/webapps/phpMyAdmin/composer.json \ 
     /usr/share/webapps/phpMyAdmin/RELEASE-DATE-$VERSION;
     
-RUN sed -i "s@define('CONFIG_DIR'.*@define('CONFIG_DIR', '/etc/webapps/phpMyAdmin/');@" /usr/share/webapps/phpMyAdmin/libraries/vendor_config.php;
+RUN sed -i "s@define('CONFIG_DIR'.*@define('CONFIG_DIR', '/etc/webapps/phpmyadmin/');@" /usr/share/webapps/phpMyAdmin/libraries/vendor_config.php;
     
 # Add directory for sessions to allow session persistence
 RUN mkdir /sessions; \

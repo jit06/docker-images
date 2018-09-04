@@ -1,6 +1,6 @@
 <?php
 
-require('/etc/phpmyadmin/config.secret.inc.php');
+require('/etc/webapps/phpmyadmin/config.secret.inc.php');
 
 /* Ensure we got the environment */
 $vars = array(
@@ -121,6 +121,6 @@ $cfg['UploadDir'] = '';
 $cfg['SaveDir'] = '';
 
 /* Include User Defined Settings Hook */
-if (file_exists('/etc/phpmyadmin/config.user.inc.php')) {
-    include('/etc/phpmyadmin/config.user.inc.php');
+if (file_exists('/etc/webapps/phpmyadmin/config.user.inc.php')) {
+    include('/etc/webapps/phpmyadmin/config.user.inc.php');
 }
