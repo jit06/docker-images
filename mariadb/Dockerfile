@@ -5,6 +5,7 @@ ENV MARIADB_ROOT_USER admin
 ENV MARIADB_ROOT_PWD admin
 
 RUN pacman -Sy --noconfirm mariadb
+RUN pacman -Scc
 
 # seems not done by the packae....?
 RUN echo "mysql:x:89:89:MariaDB daemon:/var/lib/mysql:/bin/false" >> /etc/passwd
