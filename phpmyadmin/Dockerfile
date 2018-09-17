@@ -9,10 +9,7 @@ RUN pacman -Sy --noconfirm \
     php-gd \
     supervisor
 
-
-# enable php extensions
-RUN echo "extension=mysqli.so" >> /etc/php/conf.d/mysqli.ini; \
-    echo "extension=gd.so" >> /etc/php/conf.d/gd.ini;
+RUN pacman -Scc
 
 # cleanup phpmyadmin install
 RUN rm -rf \
@@ -28,7 +25,7 @@ RUN sed -i "s@define('CONFIG_DIR'.*@define('CONFIG_DIR', '/etc/webapps/phpmyadmi
 # Add directory for sessions to allow session persistence
 RUN mkdir /sessions; \
     mkdir -p /usr/share/webapps/phpMyAdmin/tmp; \
-    chown http:http /usr/share/webapps/phpMyAdmin/tmp;
+    chown -R http:http /usr/share/webapps/phpMyAdmin/tmp /sessions
 
 # fix permission
 RUN chown http:http /run/php-fpm; \
