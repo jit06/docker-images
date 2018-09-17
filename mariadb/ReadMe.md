@@ -12,7 +12,7 @@ First start:
 ------------
 During the first start, user root is deleted, and the given user (MARIADB_ROOT_USER) is created with all privileges.
 
-If /mnt/sql directory contains a file named all-databases.sql, this file is passed to mysql, allowing an automated restore.
+If /mnt contains a file named all-databases.sql, this file is passed to mysql, allowing an automated restore.
 
 Run MariaDB:
 ------------
