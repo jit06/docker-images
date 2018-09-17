@@ -23,9 +23,9 @@ if [ ! -f /var/lib/mysql/ibdata1 ]; then
     echo "DELETE FROM mysql.user WHERE User='root'; FLUSH PRIVILEGES;" | mysql
 
     # restore a previous backup (from mysqldump --all-databases) if any
-    if [ -f /mnt/sql/all-databases.sql ] ; then
+    if [ -f /mnt/all-databases.sql ] ; then
 	echo "found a backup, trying to restore..."
-        mysql -u $MARIADB_ROOT_USER -p$MARIADB_ROOT_PWD < /mnt/sql/all-databases.sql
+        mysql -u $MARIADB_ROOT_USER -p$MARIADB_ROOT_PWD < /mnt/all-databases.sql
     fi
     
     echo "All init done, kill mysql before relaunching it..."
