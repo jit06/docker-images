@@ -9,6 +9,7 @@ RUN pacman -Sy --noconfirm \
     unzip \
     supervisor
 
+RUN pacman -Scc
   
 # Add directory for sessions and uploads to allow session and file persistence
 RUN mkdir /sessions;\
