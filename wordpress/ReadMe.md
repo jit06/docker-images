@@ -9,6 +9,8 @@ This image provides the following features:
 - favicon.ico (from wp_content)
 - access from an https reverse proxy
 - autorestore wp-content from a tar.gz backup from /mnt
+- change debug state (true or false)
+- set wordpress upgrade mode to direct (for plugins)
 
 Also, the following php modules are activated:
 
@@ -48,12 +50,12 @@ Environements variables :
 - WORDPRESS_SECURE_AUTH_SALT : one of the wordpress salt
 - WORDPRESS_LOGGED_IN_SALT : one of the wordpress salt
 - WORDPRESS_NONCE_SALT : one of the wordpress salt
+- WORDPRESS_DEBUG : either true or false
 - BACKUP_ARCHIVE : filename of the tar.gz file to restore from /mnt
-
 
 Run Wordpress:
 --------------
 Nothing special here.
 
-**Example:** docker run -p 8081:80 -e "NGINX_SERVER_NAME=mysite.com www.mysite.com" -e "SITEMAP_DOMAIN=www.mysite.com" -e "WORDPRESS_DB_NAME=dbname" -e "WORDPRESS_DB_USER=sqluser" -e "WORDPRESS_DB_PASS=sqlpassword" -e "WORDPRESS_DB_HOST=maria_db" -e "WORDPRESS_AUTH_KEY=09f4568j92dj3iuh9sdf98sj" -e "WORDPRESS_SECURE_AUTH_KEY=skldf82u398erg57fojjoiw" -e "WORDPRESS_LOGGED_IN_KEY=sdjfwfhr723ziuwhfiuh9812" -e "WORDPRESS_NONCE_KEY=98723hfhbsdfsfuihsdf87237" -e "WORDPRESS_AUTH_SALT=98jkipoqwpondfsdfuihw83878734" -e "WORDPRESS_SECURE_AUTH_SALT=qwpkjbsdfsf34trfuz762389ukhd" -e "WORDPRESS_LOGGED_IN_SALT=4629ug93hj456656zrtgdow98wh98f" -e "WORDPRESS_NONCE_SALT=las456zrgf2oz47wvwiw8fhj72t32" -e "BACKUP_ARCHIVE=mysite.tar.gz" -v /path/to/backup/mysite.tar.gz:/mnt/mysite.tar.gz  --name wordpress ed5e898bff26
+**Example:** docker run -p 8081:80 -e "NGINX_SERVER_NAME=mysite.com www.mysite.com" -e "SITEMAP_DOMAIN=www.mysite.com" -e "WORDPRESS_DEBUG=false"  -e "WORDPRESS_DB_NAME=dbname" -e "WORDPRESS_DB_USER=sqluser" -e "WORDPRESS_DB_PASS=sqlpassword" -e "WORDPRESS_DB_HOST=maria_db" -e "WORDPRESS_AUTH_KEY=09f4568j92dj3iuh9sdf98sj" -e "WORDPRESS_SECURE_AUTH_KEY=skldf82u398erg57fojjoiw" -e "WORDPRESS_LOGGED_IN_KEY=sdjfwfhr723ziuwhfiuh9812" -e "WORDPRESS_NONCE_KEY=98723hfhbsdfsfuihsdf87237" -e "WORDPRESS_AUTH_SALT=98jkipoqwpondfsdfuihw83878734" -e "WORDPRESS_SECURE_AUTH_SALT=qwpkjbsdfsf34trfuz762389ukhd" -e "WORDPRESS_LOGGED_IN_SALT=4629ug93hj456656zrtgdow98wh98f" -e "WORDPRESS_NONCE_SALT=las456zrgf2oz47wvwiw8fhj72t32" -e "BACKUP_ARCHIVE=mysite.tar.gz" -v /path/to/backup/mysite.tar.gz:/mnt/mysite.tar.gz  --name wordpress ed5e898bff26
 
