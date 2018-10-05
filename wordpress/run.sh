@@ -22,8 +22,12 @@ if [ ! -f /configured ]; then
     sed -i -e "s/'SECURE_AUTH_SALT', 'put your unique phrase here'/'SECURE_AUTH_SALT', '${WORDPRESS_SECURE_AUTH_SALT}'/g" /srv/http/wordpress/wp-config.php
     sed -i -e "s/'LOGGED_IN_SALT',   'put your unique phrase here'/'LOGGED_IN_SALT',   '${WORDPRESS_LOGGED_IN_SALT}'/g"   /srv/http/wordpress/wp-config.php
     sed -i -e "s/'NONCE_SALT',       'put your unique phrase here'/'NONCE_SALT',       '${WORDPRESS_NONCE_SALT}'/g"       /srv/http/wordpress/wp-config.php
-    
-    echo "if (isset(\$_SERVER['HTTP_X_FORWARDED_PROTO']) && \$_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https') { \$_SERVER['HTTPS'] = 'on';}" >> /srv/http/wordpress/wp-config.php
+
+    sed -i -e "s/define('WP_DEBUG', false)/define('WP_DEBUG', '${WORDPRESS_DEBUG}')/g" /srv/http/wordpress/wp-config.php
+    sed -i -e "s/<?php/<?php if ( (!empty( \$_SERVER['HTTP_X_FORWARDED_HOST'])) || (!empty( \$_SERVER['HTTP_X_FORWARDED_FOR'])) ) { \$_SERVER['HTTP_HOST'] = \$_SERVER['HTTP_X_FORWARDED_HOST']; define('WP_HOME', 'https:\/\/$SITEMAP_DOMAIN');define('WP_SITEURL', 'https:\/\/$SITEMAP_DOMAIN');\$_SERVER['HTTPS'] = 'on';}/g" /srv/http/wordpress/wp-config.php
+ 
+    echo "define('FS_METHOD', 'direct');" >>  /srv/http/wordpress/wp-config.php
+    echo "error_reporting( E_ALL ^ ( E_NOTICE | E_WARNING | E_DEPRECATED ) );" >> /srv/http/wordpress/wp-config.php    
 fi
 
 # restore wp-content from a backup if any
