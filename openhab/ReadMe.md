@@ -16,10 +16,10 @@ Environements variables :
 
 - BACKUP_CONF_ARCHIVE : filename of the tar.gz file to restore (from /mnt) to /openhab/conf
 - BACKUP_DATA_ARCHIVE : filename of the tar.gz file to restore (from /mnt) to /openhab/userdata
-
+- TIMEZONE : set timezone for localtime (eg: Europe/Paris)
 
 Run Openhab:
 --------------
-Nothing special here.
+Nothing special here, except that env vars should be set to get the correct timezone in openhab : TZ and EXTRA_JAVA_OPTIONS
 
-**Example:** docker run --name openhab -e "BACKUP_CONF_ARCHIVE=conf_openhab.tar.gz" -e "BACKUP_DATA_ARCHIVE=data_openhab.tar.gz" --net=host -v conf_openhab:/openhab/conf -v data_openhab:/openhab/userdata -v /home/backup/conf_openhab.tar.gz:/mnt/conf_openhab.tar.gz -v /home/backup/data_openhab.tar.gz:/mnt/data_openhab.tar.gz openhab
+**Example:** docker run --name openhab -e "BACKUP_CONF_ARCHIVE=myconf_openhab.tar.gz" -e "BACKUP_DATA_ARCHIVE=mydata_openhab.tar.gz" -e "TZ=Europe/Berlin" -e 'EXTRA_JAVA_OPTIONS="-Duser.timezone=Europe/Paris"' --net=host -v conf_openhab:/openhab/conf -v data_openhab:/openhab/userdata -v /home/backup/conf_openhab.tar.gz:/mnt/conf_openhab.tar.gz -v /home/backup/data_openhab.tar.gz:/mnt/data_openhab.tar.gz openhab

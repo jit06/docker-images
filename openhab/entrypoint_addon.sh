@@ -21,4 +21,9 @@ if [ -f /mnt/$BACKUP_DATA_ARCHIVE ] && [ ! -f /data_restored ] ; then
     touch /data_restored
 fi
 
+# setting up timezone
+if [ ! -z $TIMEZONE ]; then
+    echo $TIMEZONE >> /etc/timezone
+fi
+
 cd /openhab
