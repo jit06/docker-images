@@ -29,4 +29,4 @@ to run it, you must have nginx configuration files /etc/nginx/conf.d:
 - naxsi_rules : folder to store naxsi configurations
 - reverse_conf : folder to store reverse proxy settings
 
-**Example:** docker run -name "reverseproxy" -p 80 -p 443 -e "$BACKUP_CONF_ARCHIVE=myconf.tar.gz" -e "$BACKUP_LE_ARCHIVE=myLEconf.tar.gz" -e "WORKER_PROCESS=4" -e "WORKER_CONNECTIONS=512" -v conf_rproxy:/etc/nginx/conf.d -v conf_rproxy_letsencrypt:/etc/letsencrypt
+**Example:** docker run -name "reverseproxy" -p 80 -p 443 -e "BACKUP_CONF_ARCHIVE=myconf.tar.gz" -e "BACKUP_LE_ARCHIVE=myLEconf.tar.gz" -e "WORKER_PROCESS=4" -e "WORKER_CONNECTIONS=512" -v conf_rproxy:/etc/nginx/conf.d -v conf_rproxy_letsencrypt:/etc/letsencrypt
