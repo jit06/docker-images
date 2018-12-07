@@ -3,12 +3,14 @@ FROM registry.local.lan:5000/armv7h/archlinux
 # install needed packages
 RUN pacman -Sy --noconfirm \
     nginx \
+    nginx-mod-naxsi \
     certbot
     
 RUN pacman -Scc
 
-# add directories for additionnal conf (throught volumes)
-RUN mkdir /etc/nginx/conf.d
+RUN useradd -r -s /usr/bin/nologin http ; \
+    mkdir /etc/nginx/conf.d ; \
+    chown http /etc/nginx/conf.d;
 
 ADD ./nginx-entrypoint.sh /opt/nginx-entrypoint.sh
 ADD ./letsencrypt_renew.sh /usr/local/bin/letsencrypt_renew.sh
@@ -17,5 +19,4 @@ ADD ./letsencrypt_renew.sh /usr/local/bin/letsencrypt_renew.sh
 
 ENTRYPOINT ["/opt/nginx-entrypoint.sh"]
 
-CMD [/usr/sbin/nginx]
-
+CMD ["/usr/bin/nginx"]
