@@ -104,6 +104,7 @@ expect <<EOF
 		-exact "(default=all): " { send -- "\r"; exp_continue }
 		-exact "installation? \[Y/n\]" { send -- "y\r"; exp_continue }
 		-exact "delete it? \[Y/n\]" { send -- "y\r"; exp_continue }
+		-exact "for this upgrade? \[y/N\]" { send -- "y\r"; exp_continue }
 	}
 EOF
 
