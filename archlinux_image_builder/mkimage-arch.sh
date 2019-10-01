@@ -33,8 +33,6 @@ chmod 755 $ROOTFS
 
 # packages to ignore for space savings
 PKGIGNORE=(
-    cryptsetup
-    device-mapper
     dhcpcd
     iproute2
     jfsutils
@@ -104,7 +102,6 @@ expect <<EOF
 		-exact "(default=all): " { send -- "\r"; exp_continue }
 		-exact "installation? \[Y/n\]" { send -- "y\r"; exp_continue }
 		-exact "delete it? \[Y/n\]" { send -- "y\r"; exp_continue }
-		-exact "for this upgrade? \[y/N\]" { send -- "y\r"; exp_continue }
 	}
 EOF
 
