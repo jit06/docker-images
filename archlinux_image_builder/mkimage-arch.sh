@@ -96,8 +96,9 @@ expect <<EOF
 	}
 	set timeout $EXPECT_TIMEOUT
 
-	spawn pacstrap -C $PACMAN_CONF -c -d -G -i $ROOTFS base haveged $PACMAN_EXTRA_PKGS --ignore $PKGIGNORE
+	spawn pacstrap -C $PACMAN_CONF -c -d -G -i $ROOTFS base haveged coreutils bash procps-ng pacman sed gzip $PACMAN_EXTRA_PKGS --ignore $PKGIGNORE
 	expect {
+		-exact "upgrade? \[y/N\] " { send -- "y\r"; exp_continue }
 		-exact "anyway? \[Y/n\] " { send -- "n\r"; exp_continue }
 		-exact "(default=all): " { send -- "\r"; exp_continue }
 		-exact "installation? \[Y/n\]" { send -- "y\r"; exp_continue }
