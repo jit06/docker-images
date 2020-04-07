@@ -70,7 +70,7 @@ case "$arch" in
 		PACMAN_CONF=$(mktemp ${TMPDIR:-/var/tmp}/pacman-conf-archlinux-XXXXXXXXX)
 		version="$(echo $arch | cut -c 5)"
 		sed "s/Architecture = armv/Architecture = armv${version}h/g" './mkimage-archarm-pacman.conf' > "${PACMAN_CONF}"
-		PACMAN_MIRRORLIST='Server = http://mirror.archlinuxarm.org/$arch/$repo'
+		PACMAN_MIRRORLIST='Server = http://de.mirror.archlinuxarm.org/$arch/$repo'
 		PACMAN_EXTRA_PKGS='archlinuxarm-keyring'
 		EXPECT_TIMEOUT=1800 # Most armv* based devices can be very slow (e.g. RPiv1)
 		ARCH_KEYRING=archlinuxarm
