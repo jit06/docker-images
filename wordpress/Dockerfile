@@ -9,8 +9,7 @@ RUN pacman -Sy --noconfirm \
     php-apcu-bc \
     php-imap \
     php-tidy \
-    supervisor \
-    tar
+    supervisor
 
 RUN pacman -Scc
 
