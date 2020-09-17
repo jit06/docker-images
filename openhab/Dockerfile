@@ -1,4 +1,4 @@
-FROM openhab/openhab:2.5.3-armhf-debian
+FROM openhab/openhab:2.5.8
 
 # add the entrypoint modification
 COPY entrypoint_addon.sh /entrypoint_addon.sh
