@@ -38,7 +38,7 @@ arguments that *should be set* to configure it correctly:
 - innodb_buffer_pool_instances
 - max_connections
 
-**Example:** docker run -d -p 3306:3306 --name test_mariadb -v /path/to/backup:/mnt registry.local.lan:5000/mariadb --port 3306 --skip-external-locking
+**Example:** docker run -d -p 3306:3306 --name mariadb -v /path/to/backup:/mnt registry.local.lan:5000/mariadb --port 3306 --skip-external-locking
 
 In order to get all logs trapped with docker you could also add:
 
