@@ -1,26 +1,25 @@
-FROM registry.local.lan:5000/armv7h/archlinux
+FROM arm32v7/alpine
 
 # install needed packages
-RUN pacman -Sy --noconfirm \
-    nginx \
-    php-fpm \
-    php-gd \
-    php-apcu \
-    php-apcu-bc \
-    php-imap \
-    php-tidy \
-    supervisor
+RUN apk add --no-cache bash curl less vim nginx ca-certificates git tzdata zip supervisor \
+    libmcrypt-dev zlib-dev gmp-dev \
+    freetype-dev libjpeg-turbo-dev libpng-dev \
+    php7-fpm php7-json php7-zlib php7-xml php7-xmlwriter php7-simplexml php7-pdo php7-phar php7-openssl \
+    php7-pdo_mysql php7-mysqli php7-session php7-imap php7-tidy \
+    php7-gd php7-iconv php7-mcrypt php7-gmp php7-zip \
+    php7-curl php7-opcache php7-ctype php7-apcu \
+    php7-intl php7-bcmath php7-dom php7-mbstring php7-xmlreader mysql-client curl && apk add -u musl && \
+    rm -rf /var/cache/apk/*
 
-RUN pacman -Scc
+# create http user
+RUN adduser -D -g 'http' http
 
-
-# Add directory for sessions to allow session persistence
-RUN mkdir /sessions; \
-    chown -R http:http /srv/http /sessions
+# Add directory for sessions and pid
+RUN mkdir /sessions /srv/http /run/php-fpm /run/nginx; \
+    chown -R http:http /srv/http /sessions /run/php-fpm /run/nginx
 
 # fix permission
-RUN chown http:http /run/php-fpm; \
-    touch /var/log/php-fpm.log; \
+RUN touch /var/log/php-fpm.log; \
     chown http:http /var/log/php-fpm.log
     
 # get latest worpress
@@ -31,9 +30,11 @@ RUN set -ex; \
 	rm /srv/http/wordpress/readme.html; \
 	rm /srv/http/wordpress/license.txt
 
+# no need for default conf
+RUN rm /etc/nginx/conf.d/default.conf
+
 # Copy configuration
 COPY etc /etc/
-
 COPY robots.txt /srv/http/wordpress
 
 # Copy main script
