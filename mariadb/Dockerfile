@@ -4,7 +4,7 @@ FROM arm32v7/alpine
 ENV MARIADB_ROOT_USER admin
 ENV MARIADB_ROOT_PWD admin
 
-RUN apk add --no-cache mariadb mariadb-server-utils mariadb-client bash && \
+RUN apk add --no-cache mariadb mariadb-server-utils mariadb-client bash grep && \
     rm -f /var/cache/apk/*
 
 # seems not done by the package....?
