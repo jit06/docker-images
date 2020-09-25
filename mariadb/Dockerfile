@@ -11,6 +11,9 @@ RUN apk add --no-cache mariadb mariadb-server-utils mariadb-client bash grep && 
 #RUN echo "mysql:x:89:89:MariaDB daemon:/var/lib/mysql:/bin/false" >> /etc/passwd
 #RUN echo "mysql:x:89:" >> /etc/group
 
+# do not use default settings
+RUN rm /etc/my.cnf.d/mariadb-server.cnf
+
 RUN rm -Rf /var/lib/mysql/*
 RUN mkdir -p /run/mysqld && chown mysql /run/mysqld
 
