@@ -96,7 +96,7 @@ expect <<EOF
 	}
 	set timeout $EXPECT_TIMEOUT
 
-	spawn pacstrap -C $PACMAN_CONF -c -d -G -i $ROOTFS base haveged coreutils bash procps-ng pacman sed gzip tar $PACMAN_EXTRA_PKGS --ignore $PKGIGNORE
+	spawn pacstrap -C $PACMAN_CONF -c -d -G -i $ROOTFS base base-devel haveged coreutils bash procps-ng pacman sed gzip tar $PACMAN_EXTRA_PKGS --ignore $PKGIGNORE
 	expect {
 		-exact "upgrade? \[y/N\] " { send -- "y\r"; exp_continue }
 		-exact "anyway? \[Y/n\] " { send -- "n\r"; exp_continue }
@@ -139,7 +139,7 @@ echo "Tag with $tag and latest for $registry"
 docker tag $DOCKER_IMAGE_NAME $registry/$DOCKER_IMAGE_NAME:$tag
 docker tag $DOCKER_IMAGE_NAME $registry/$DOCKER_IMAGE_NAME:latest
 echo "push images in registry"
-docker push $registry/$DOCKER_IMAGE_NAME
+docker push --all-tags $registry/$DOCKER_IMAGE_NAME
 echo "remove temp dir..."
 rm -Rf $ROOTFS
 echo "remove local images..."
