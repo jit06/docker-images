@@ -12,11 +12,11 @@ RUN apk add --no-cache bash curl less vim nginx ca-certificates git tzdata zip s
     rm -rf /var/cache/apk/*
 
 # create http user
-RUN adduser -D -g 'http' http
+RUN adduser --disabled-password --no-create-home http && addgroup 'http' http
 
 # Add directory for sessions and pid
-RUN mkdir /sessions /srv/http /run/php-fpm /run/nginx; \
-    chown -R http:http /srv/http /sessions /run/php-fpm /run/nginx
+RUN mkdir /sessions /srv/http; \
+    chown -R http:http /srv/http /sessions /var/lib/nginx
 
 # fix permission
 RUN touch /var/log/php-fpm.log; \
@@ -29,9 +29,6 @@ RUN set -ex; \
 	rm wordpress.tar.gz; \
 	rm /srv/http/wordpress/readme.html; \
 	rm /srv/http/wordpress/license.txt
-
-# no need for default conf
-RUN rm /etc/nginx/conf.d/default.conf
 
 # Copy configuration
 COPY etc /etc/
