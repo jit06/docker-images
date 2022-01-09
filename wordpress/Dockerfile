@@ -15,8 +15,8 @@ RUN apk add --no-cache bash curl less vim nginx ca-certificates git tzdata zip s
 RUN adduser --disabled-password --no-create-home http && addgroup 'http' http
 
 # Add directory for sessions and pid
-RUN mkdir /sessions /srv/http; \
-    chown -R http:http /srv/http /sessions /var/lib/nginx
+RUN mkdir /sessions /srv/http /run/php-fpm ; \
+    chown -R http:http /srv/http /sessions /var/lib/nginx /run/php-fpm
 
 # fix permission
 RUN touch /var/log/php-fpm.log; \
