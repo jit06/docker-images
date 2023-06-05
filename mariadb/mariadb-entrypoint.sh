@@ -41,4 +41,3 @@ fi
 echo "Launch safe_mysqld with given arguments:"
 echo "$@"
 exec "$@"
-
