@@ -6,12 +6,6 @@ if [ ! -f /var/lib/mysql/ibdata1 ]; then
     echo "First run, launch mysql_install_db..."
     /usr/bin/mysql_install_db --user=mysql --basedir=/usr --datadir=/var/lib/mysql
 
-    # link error file to /dev/stderr if it does not exist yet
-    mysql_error_log=$(hostname).err
-    echo "Create symlink to redirect error log to /dev/stdout"
-    ln -s /dev/stdout /var/lib/mysql/$mysql_error_log
-    chown mysql:mysql /var/lib/mysql/$mysql_error_log
-
     echo "Init db done, start mysqld_safe..."
     /usr/bin/mysqld_safe &
     sleep 10s
@@ -24,11 +18,34 @@ if [ ! -f /var/lib/mysql/ibdata1 ]; then
 
     # restore a previous backup (from mysqldump --all-databases) if any
     if [ -f /mnt/all-databases.sql ] ; then
-	echo "found a backup, trying to restore..."
+	
+	echo "====================================================="
+	echo "found a backup, start restore / upgrade procesure"
+	echo "====================================================="
+	echo ""
+	echo "==== start restoring all databases ===="
         mysql -u $MARIADB_ROOT_USER -p$MARIADB_ROOT_PWD < /mnt/all-databases.sql
+	echo "==== 	databases restored 	 ===="
+	echo ""
+	echo "==== kill mysql before starting upgrade ==="
+	pkill -e mysqld
+        pkill -e mariadb
+        sleep 10s
+
+	echo "==== start mysql with skip grant tables ===="    
+        /usr/bin/mysqld -u root --skip-grant-tables &
+	sleep 10s	
+
+	echo "==== starting upgrade... ===="	
+        mariadb-upgrade
+
+	echo "====================================================="
+	echo " Restore / upgrade procesure finished"
+	echo "====================================================="
+    	echo ""
     fi
     
-    echo "All init done, kill mysql before relaunching it..."
+    echo "kill mysql before restarting it with all arguments"
     pkill -e mysqld
     pkill -e mariadb
     sleep 10s
@@ -39,9 +56,6 @@ if [ "${1:0:1}" = '-' ]; then
 	echo "arguments detected, adding them to the launch command"
 	set -- /usr/bin/mysqld_safe "$@"
 fi
-
-echo "list of processes :"
-ps aux
 
 echo "Launching safe_mysqld:"
 echo "$@"
