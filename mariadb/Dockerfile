@@ -4,8 +4,10 @@ FROM arm32v7/alpine
 ENV MARIADB_ROOT_USER admin
 ENV MARIADB_ROOT_PWD admin
 
-RUN apk add --no-cache mariadb mariadb-server-utils mariadb-client bash grep && \
+RUN apk add --no-cache mariadb mariadb-server-utils mariadb-client bash grep perl perl-doc wget procps && \
     rm -f /var/cache/apk/*
+
+RUN addgroup mysql tty
 
 # seems not done by the package....?
 #RUN echo "mysql:x:89:89:MariaDB daemon:/var/lib/mysql:/bin/false" >> /etc/passwd
