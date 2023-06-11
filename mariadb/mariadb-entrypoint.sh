@@ -8,7 +8,7 @@ if [ ! -f /var/lib/mysql/ibdata1 ]; then
 
     # link error file to /dev/stderr if it does not exist yet
     mysql_error_log=$(hostname).err
-    echo "Create symlink to redirect error log to /dev/sterr"
+    echo "Create symlink to redirect error log to /dev/stdout"
     ln -s /dev/stdout /var/lib/mysql/$mysql_error_log
     chown mysql:mysql /var/lib/mysql/$mysql_error_log
 
@@ -29,15 +29,20 @@ if [ ! -f /var/lib/mysql/ibdata1 ]; then
     fi
     
     echo "All init done, kill mysql before relaunching it..."
-    pkill mysqld
+    pkill -e mysqld
+    pkill -e mariadb
     sleep 10s
 fi
 
 # if command starts with an option, prepend /usr/bin/mysqld_safe
 if [ "${1:0:1}" = '-' ]; then
+	echo "arguments detected, adding them to the launch command"
 	set -- /usr/bin/mysqld_safe "$@"
 fi
 
-echo "Launch safe_mysqld with given arguments:"
+echo "list of processes :"
+ps aux
+
+echo "Launching safe_mysqld:"
 echo "$@"
 exec "$@"
