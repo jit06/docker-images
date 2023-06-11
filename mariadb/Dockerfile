@@ -7,12 +7,6 @@ ENV MARIADB_ROOT_PWD admin
 RUN apk add --no-cache mariadb mariadb-server-utils mariadb-client bash grep perl perl-doc wget procps && \
     rm -f /var/cache/apk/*
 
-RUN addgroup mysql tty
-
-# seems not done by the package....?
-#RUN echo "mysql:x:89:89:MariaDB daemon:/var/lib/mysql:/bin/false" >> /etc/passwd
-#RUN echo "mysql:x:89:" >> /etc/group
-
 # do not use default settings
 RUN rm /etc/my.cnf.d/mariadb-server.cnf
 
@@ -28,4 +22,4 @@ ADD ./vulnerabilities.csv /opt/vulnerabilities.csv
 
 ENTRYPOINT ["/opt/mariadb-entrypoint.sh"]
 
-CMD ["/usr/bin/mysqld_safe"]
+#CMD ["/usr/bin/mysqld_safe"]
