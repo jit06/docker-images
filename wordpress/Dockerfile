@@ -1,4 +1,4 @@
-FROM arm32v7/alpine
+FROM arm32v7/alpine:3.15
 
 # install needed packages
 RUN apk add --no-cache bash curl less vim nginx ca-certificates git tzdata zip supervisor \
