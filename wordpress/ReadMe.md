@@ -2,7 +2,7 @@ Image usage
 ===========
 
 Wordpress images that uses nginx and php-fpm.
-This image provides the following features:
+This image has the following features:
 
 - included support for w3c total cache plugin
 - robots.txt
