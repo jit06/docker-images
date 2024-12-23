@@ -2,7 +2,7 @@
 Custom docker images builder
 
 ## build image
-docker build -t image_name:vYYYY.MM.DD
+docker build -t image_name:v`date "+%Y-%m-%d"`
 
 ## export image
-docker save --output image_name-vYYYY.MM.DD.tar image_name:vYYYY.MM.DD
+docker save --output image_name-v`date "+%Y.%m.%d"`.tar image_name:v`date "+%Y-%m-%d"`
